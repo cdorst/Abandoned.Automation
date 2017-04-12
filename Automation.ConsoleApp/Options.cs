@@ -11,5 +11,9 @@ namespace Automation.ConsoleApp
         [Option('o', "output", Required = true,
             HelpText = "Path to place files produced")]
         public string OutputFilePath { get; set; }
+
+        [Option('d', "directory", Required = false,
+            HelpText = "Solution directory path")]
+        public string SolutionDirectory { get; set; }
     }
 }

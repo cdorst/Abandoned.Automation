@@ -1,9 +1,11 @@
-﻿using CommandLine;
+﻿using Automation.ConsoleApp.Services;
+using CommandLine;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Preparation.ConsoleApp.Services;
 using System;
 
-namespace dotnet_make
+namespace Automation.ConsoleApp
 {
     public static class Program
     {
@@ -15,7 +17,8 @@ namespace dotnet_make
         {
             var serviceProvider = ConfigureServices(options);
             AddLogging(serviceProvider);
-            serviceProvider.GetService<IAutomationService>().Run();
+            var service = serviceProvider.GetService<IPreparationService>();
+            service.Run();
         }
 
         private static IServiceProvider ConfigureServices(Options options)
@@ -28,6 +31,7 @@ namespace dotnet_make
                     o.TemplateFilePath = options.TemplateFilePath;
                 })
                 .AddApplicationServices()
+                .AddSingleton<IPreparationService, PreparationService>()
                 .BuildServiceProvider();
 
         private static void AddLogging(IServiceProvider serviceProvider)

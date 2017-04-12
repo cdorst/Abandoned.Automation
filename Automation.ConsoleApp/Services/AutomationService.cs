@@ -14,21 +14,20 @@ namespace Automation.ConsoleApp.Services
         {
             _template = templateService;
 
-            Pipeline = new Func<dynamic, dynamic, dynamic>[]
+            Pipeline = new List<(Func<dynamic, dynamic, dynamic> Function, dynamic Argument)>
             {
-                (state, arg) => state,
                 /*{{processes}}*/
             };
         }
 
-        public ICollection<Func<dynamic, dynamic, dynamic>> Pipeline { get; set; }
+        public ICollection<(Func<dynamic, dynamic, dynamic> Function, dynamic Argument)> Pipeline { get; set; }
 
         public void Run()
         {
             dynamic state = _template.GetTemplate();
             foreach (var process in Pipeline)
             {
-                state = process(state, state);
+                state = process.Function(state, process.Argument);
             }
         }
     }
