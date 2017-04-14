@@ -16,6 +16,11 @@ namespace Automation.ConsoleApp
         {
             var serviceProvider = ConfigureServices(options);
             AddLogging(serviceProvider);
+            var logger = serviceProvider.GetService<ILogger<Options>>();
+            logger.LogInformation($"Solution directory: {options.SolutionDirectory}");
+            logger.LogInformation($"Template path: {options.TemplateFilePath}");
+            logger.LogInformation($"Output path: {options.OutputFilePath}");
+
             serviceProvider.GetService<IAutomationService>().Run();
         }
 
