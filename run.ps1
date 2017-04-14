@@ -4,7 +4,7 @@ Write-Host "Restoring Packages"
 Write-Host "Builing preparation app"
 & dotnet build
 Write-Host "Running preparation app"
-& dotnet run -t "$PSScriptRoot/Preparation.ConsoleApp/template.json" -o "$PSScriptRoot/Automation.ConsoleApp/Services/AutomationService.cs" -d "$PSScriptRoot"
+& dotnet run -- -t "$PSScriptRoot/Preparation.ConsoleApp/template.json" -o "$PSScriptRoot/Automation.ConsoleApp/Services/AutomationService.cs" -d "$PSScriptRoot"
 & cd ..
 & dotnet restore
 & dotnet build
